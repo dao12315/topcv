@@ -14,7 +14,7 @@ export default function HomeScreen({ cvData, onNavigateToTab, onStartCVWizard, m
   return (
     <div className="space-y-6 pb-6">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-brand via-brand/90 to-indigo-600 rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-brand via-brand/95 to-brand-dark rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
         {/* Abstract background blobs for decorative styling */}
         <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none" />
         <div className="absolute -left-10 -bottom-10 w-32 h-32 bg-brand-light/20 rounded-full blur-xl pointer-events-none" />

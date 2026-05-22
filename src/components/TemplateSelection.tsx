@@ -15,13 +15,13 @@ export default function TemplateSelection({ selectedTemplate, onSelectTemplate, 
   const getTemplateIcon = (id: string, color: string) => {
     switch (id) {
       case 'modern-student':
-        return <GraduationCap className="w-5 h-5 text-blue-500" />;
+        return <GraduationCap className="w-5 h-5 text-brand" />;
       case 'simple-worker':
-        return <Briefcase className="w-5 h-5 text-emerald-500" />;
+        return <Briefcase className="w-5 h-5 text-emerald-600" />;
       case 'professional-office':
-        return <Landmark className="w-5 h-5 text-indigo-500" />;
+        return <Landmark className="w-5 h-5 text-brand-dark" />;
       default:
-        return <GraduationCap className="w-5 h-5" />;
+        return <GraduationCap className="w-5 h-5 text-brand" />;
     }
   };
 

@@ -204,7 +204,7 @@ export default function App() {
             </div>
             <div className="flex justify-between items-center text-xs">
               <span className="text-gray-500 font-medium">Hồ sơ đã nộp</span>
-              <span className="font-bold text-indigo-600">{activeApplicationsCount} đơn tuyển</span>
+              <span className="font-bold text-brand-dark">{activeApplicationsCount} đơn tuyển</span>
             </div>
           </div>
         </div>
@@ -250,7 +250,7 @@ export default function App() {
                 <ChevronLeft className="w-5 h-5 text-gray-700 stroke-[2.5]" />
               </button>
             ) : (
-              <div className="w-8 h-8 bg-gradient-to-tr from-brand to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-sm">
+              <div className="w-8 h-8 bg-gradient-to-tr from-brand to-brand-dark rounded-xl flex items-center justify-center text-white shadow-sm">
                 <Sparkles className="w-4 h-4 fill-white text-white animate-pulse" />
               </div>
             )}
