@@ -202,7 +202,7 @@ export default function JobMatching({ jobs, onApplyJob, cvScore }: JobMatchingPr
                     </div>
                   ) : (
                     <>
-                      <span>Ứng tuyển nhanh với Zalo CV</span>
+                      <span>Ứng tuyển ngay với CV</span>
                       <ChevronRight className="w-4 h-4" />
                     </>
                   )}
