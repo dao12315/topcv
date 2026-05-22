@@ -503,7 +503,7 @@ export default function App() {
         )}
 
         {/* Scrollable Viewport Stage */}
-        <main className="flex-1 overflow-y-auto px-4 py-4 scrollbar-none pb-24 bg-[#F4F6F9]">
+        <main className="flex-1 overflow-y-auto px-4 py-3.5 scrollbar-none pb-4 bg-[#F4F6F9]">
           <AnimatePresence mode="wait">
             <motion.div
               key={`${activeTab}-${cvStep}`}
@@ -578,7 +578,7 @@ export default function App() {
         </main>
 
         {/* Smartphone simulated Bottom navigation bar (Zalo Inspired) */}
-        <nav className="absolute bottom-0 inset-x-0 h-18 bg-white border-t border-gray-100 flex items-center justify-around px-2 z-40 select-none pb-2.5">
+        <nav className="h-18 bg-white border-t border-gray-100 flex items-center justify-around px-2 z-40 select-none pb-2.5 shrink-0 relative">
           {/* Tab 1 */}
           <button
             id="nav-tab-home"
