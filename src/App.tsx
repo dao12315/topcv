@@ -188,7 +188,7 @@ export default function App() {
             </div>
             <div>
               <h1 className="text-3xl font-extrabold text-brand tracking-tight">CVConnect AI</h1>
-              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Zalo Mini App Platform</p>
+              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Trợ lý tìm việc AI</p>
             </div>
           </div>
           <p className="text-sm text-gray-600 font-medium italic">
@@ -432,7 +432,7 @@ export default function App() {
                 {activeTab === 'tracking' && 'Theo dõi ứng tuyển'}
               </h2>
               <p className="text-[9px] text-gray-400 font-semibold uppercase tracking-wider">
-                {activeTab === 'home' && 'Zalo Mini App Platform'}
+                {activeTab === 'home' && 'Trợ lý tìm việc AI'}
                 {activeTab === 'cv' && `Đạt ${cvData.score} Điểm`}
                 {activeTab === 'jobs' && 'AI matching'}
                 {activeTab === 'tracking' && `${activeApplicationsCount} đơn hồ sơ`}

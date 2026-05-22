@@ -25,7 +25,7 @@ export default function HomeScreen({ cvData, onNavigateToTab, onStartCVWizard, m
         <div className="relative z-10 space-y-4">
           <div className="flex items-center gap-2 bg-white/10 w-fit px-3 py-1 rounded-full text-xs font-medium backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5 text-yellow-300 fill-yellow-300" />
-            <span>Zalo Mini App Platform</span>
+            <span>Trợ lý tìm việc AI</span>
           </div>
           
           <div>
