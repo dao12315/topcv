@@ -45,6 +45,8 @@ export interface Job {
   missingSkills: string[];
   applied: boolean;
   category?: 'technical' | 'labor' | 'office';
+  hrZalo?: string;
+  hrName?: string;
 }
 
 export type ApplicationStatus = 'applied' | 'viewed' | 'interview' | 'rejected';
@@ -57,6 +59,8 @@ export interface Application {
   salary: string;
   status: ApplicationStatus;
   appliedDate: string;
+  hrZalo?: string;
+  hrName?: string;
   timeline: {
     status: ApplicationStatus;
     label: string;

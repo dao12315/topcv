@@ -95,7 +95,9 @@ export const mockJobs: Job[] = [
     matchedSkills: ['React', 'HTML/CSS', 'Javascript', 'Git'],
     missingSkills: ['Typescript', 'Teamwork'],
     category: 'technical',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0332817798',
+    hrName: 'Anh Đạo'
   },
   {
     id: 'job-2',
@@ -108,7 +110,9 @@ export const mockJobs: Job[] = [
     matchedSkills: ['Spring Boot', 'Git'],
     missingSkills: ['SQL Server', 'RESTful API Basic'],
     category: 'technical',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0332817798',
+    hrName: 'Anh Đạo'
   },
   {
     id: 'job-5',
@@ -121,7 +125,9 @@ export const mockJobs: Job[] = [
     matchedSkills: ['C/C++', 'Git', 'Lập trình Web'],
     missingSkills: ['FreeRTOS', 'Linux Embedded'],
     category: 'technical',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0905558888',
+    hrName: 'Chị Vân'
   },
   {
     id: 'job-6',
@@ -134,7 +140,9 @@ export const mockJobs: Job[] = [
     matchedSkills: ['React', 'Javascript', 'Git'],
     missingSkills: ['Flutter Dart', 'RESTful APIs', 'Bloc/Provider'],
     category: 'technical',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0912345678',
+    hrName: 'Anh Tuấn'
   },
   {
     id: 'job-7',
@@ -147,7 +155,9 @@ export const mockJobs: Job[] = [
     matchedSkills: ['Git'],
     missingSkills: ['Docker', 'Kubernetes', 'CI/CD Pipelines', 'Linux Shell'],
     category: 'technical',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0934567890',
+    hrName: 'Chị Vy'
   },
   {
     id: 'job-8',
@@ -160,7 +170,9 @@ export const mockJobs: Job[] = [
     matchedSkills: ['Git'],
     missingSkills: ['CCNA Cert', 'Firewall Policy', 'Network Security', 'Linux Admin'],
     category: 'technical',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0978901234',
+    hrName: 'Anh Khoa'
   },
   {
     id: 'job-3',
@@ -173,7 +185,9 @@ export const mockJobs: Job[] = [
     matchedSkills: ['Google UX Design Certificate'],
     missingSkills: ['Figma Mastery', 'Communication'],
     category: 'office',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0945678901',
+    hrName: 'Chị Hà'
   },
   {
     id: 'job-4',
@@ -186,7 +200,9 @@ export const mockJobs: Job[] = [
     matchedSkills: [],
     missingSkills: ['Sales Skills', 'Customer Support', 'Communication'],
     category: 'office',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0923456789',
+    hrName: 'Chị Mai'
   },
   {
     id: 'job-12',
@@ -199,7 +215,9 @@ export const mockJobs: Job[] = [
     matchedSkills: ['Git', 'Communication'],
     missingSkills: ['Excel Advanced', 'HR Policy'],
     category: 'office',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0956789012',
+    hrName: 'Chị Ngân'
   },
   {
     id: 'job-13',
@@ -212,7 +230,9 @@ export const mockJobs: Job[] = [
     matchedSkills: [],
     missingSkills: ['MISA Software', 'Tax Declaration', 'Financial Report'],
     category: 'office',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0981112222',
+    hrName: 'Anh Hoàng'
   },
   {
     id: 'job-14',
@@ -225,7 +245,9 @@ export const mockJobs: Job[] = [
     matchedSkills: [],
     missingSkills: ['Wordpress Panel', 'Content Creation'],
     category: 'office',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0969998888',
+    hrName: 'Chị Dung'
   },
   {
     id: 'job-9',
@@ -238,7 +260,9 @@ export const mockJobs: Job[] = [
     matchedSkills: ['Git'],
     missingSkills: ['Driver License', 'Map Navigation'],
     category: 'labor',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0988889999',
+    hrName: 'Anh Hùng'
   },
   {
     id: 'job-10',
@@ -251,7 +275,9 @@ export const mockJobs: Job[] = [
     matchedSkills: [],
     missingSkills: ['Customer Welcoming', 'Beverage Prep'],
     category: 'labor',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0911223344',
+    hrName: 'Chị Linh'
   },
   {
     id: 'job-11',
@@ -264,7 +290,9 @@ export const mockJobs: Job[] = [
     matchedSkills: [],
     missingSkills: ['Physical Health', 'Inventory Management'],
     category: 'labor',
-    applied: false
+    applied: false,
+    hrZalo: 'https://zalo.me/0933445566',
+    hrName: 'Anh Bảo'
   }
 ];
 
@@ -277,6 +305,8 @@ export const mockInitialApplications: Application[] = [
     salary: '4.000.000 - 6.000.000 VNĐ',
     status: 'interview',
     appliedDate: '15/05/2026',
+    hrZalo: 'https://zalo.me/0332817798',
+    hrName: 'Anh Đạo',
     timeline: [
       {
         status: 'applied',
@@ -316,6 +346,8 @@ export const mockInitialApplications: Application[] = [
     salary: '3.500.000 - 5.000.000 VNĐ',
     status: 'applied',
     appliedDate: '20/05/2026',
+    hrZalo: 'https://zalo.me/0332817798',
+    hrName: 'Anh Đạo',
     timeline: [
       {
         status: 'applied',

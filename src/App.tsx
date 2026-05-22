@@ -135,6 +135,8 @@ export default function App() {
       salary: targetJob.salary,
       status: 'applied',
       appliedDate: formattedDate,
+      hrZalo: targetJob.hrZalo || 'https://zalo.me/0332817798',
+      hrName: targetJob.hrName || 'Anh Đạo',
       timeline: [
         {
           status: 'applied',

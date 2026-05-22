@@ -55,36 +55,44 @@ export default function ApplicationTracking({ applications }: ApplicationTrackin
       ) : (
         <div className="space-y-5">
           {/* horizontal scroll selector for applied jobs cards */}
-          <div className="flex gap-2.5 overflow-x-auto pb-1 scrollbar-none font-sans">
-            {applications.map((app) => {
-              const isSelected = app.id === selectedAppId;
-              return (
-                <div
-                  key={app.id}
-                  onClick={() => setSelectedAppId(app.id)}
-                  className={`p-4 rounded-2xl border cursor-pointer transition-all min-w-[200px] flex-1 max-w-[240px] flex flex-col justify-between ${
-                    isSelected 
-                      ? 'bg-brand text-white border-brand shadow-md' 
-                      : 'bg-white border-gray-100 text-gray-800 hover:shadow-sm'
-                  }`}
-                >
-                  <div className="space-y-1">
-                    <p className={`text-[9px] uppercase font-bold tracking-wider ${isSelected ? 'text-brand-light/70' : 'text-gray-400'}`}>
-                      {app.company}
-                    </p>
-                    <h4 className="text-xs font-bold leading-tight line-clamp-1">{app.jobTitle}</h4>
+          <div className="space-y-1.5">
+            {applications.length > 1 && (
+              <div className="flex justify-between items-center text-[10px] text-gray-400 font-extrabold px-1 uppercase select-none">
+                <span>Đơn ứng tuyển ({applications.length})</span>
+                <span className="text-brand flex items-center gap-1">Trượt ngang xem thêm 💬</span>
+              </div>
+            )}
+            <div className="flex gap-2.5 overflow-x-auto pb-2.5 scrollbar-none font-sans flex-nowrap snap-x">
+              {applications.map((app) => {
+                const isSelected = app.id === selectedAppId;
+                return (
+                  <div
+                    key={app.id}
+                    onClick={() => setSelectedAppId(app.id)}
+                    className={`p-4 rounded-2xl border cursor-pointer transition-all min-w-[205px] w-[205px] shrink-0 snap-center flex flex-col justify-between ${
+                      isSelected 
+                        ? 'bg-brand text-white border-brand shadow-md scale-[1.01]' 
+                        : 'bg-white border-gray-100 text-gray-800 hover:shadow-xs'
+                    }`}
+                  >
+                    <div className="space-y-1">
+                      <p className={`text-[9px] uppercase font-bold tracking-wider ${isSelected ? 'text-brand-light/70' : 'text-gray-400'}`}>
+                        {app.company}
+                      </p>
+                      <h4 className="text-xs font-bold leading-tight line-clamp-1">{app.jobTitle}</h4>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-dashed border-current/20 flex justify-between items-center text-[10px]">
+                      <span className={isSelected ? 'text-white/80 font-medium' : 'text-gray-500 font-medium'}>
+                        {app.appliedDate}
+                      </span>
+                      <span className={isSelected ? 'bg-white/20 text-white px-2 py-0.5 rounded-full font-bold' : 'bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full font-bold'}>
+                        {app.status === 'interview' ? 'PV' : app.status === 'viewed' ? 'Đã Xem' : 'Đơn mới'}
+                      </span>
+                    </div>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-dashed border-current/20 flex justify-between items-center text-[10px]">
-                    <span className={isSelected ? 'text-white/80 font-medium' : 'text-gray-500 font-medium'}>
-                      {app.appliedDate}
-                    </span>
-                    <span className={isSelected ? 'bg-white/20 text-white px-2 py-0.5 rounded-full font-bold' : 'bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full font-bold'}>
-                      {app.status === 'interview' ? 'PV' : app.status === 'viewed' ? 'Đã Xem' : 'Đơn mới'}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
           {/* Active app pipeline summary in detail view layout */}
@@ -117,16 +125,18 @@ export default function ApplicationTracking({ applications }: ApplicationTrackin
 
               {/* Direct Zalo operational CTA */}
               <div className="flex gap-2.5 pt-1.5 border-t border-b border-gray-100 py-3">
-                <button 
-                  onClick={() => alert(`Kết nối chat trực tiếp với bộ phận tuyển dụng ${selectedApp.company} trên Zalo Chat.`)}
-                  className="px-4 py-2 bg-brand-light text-brand rounded-xl font-bold text-xs flex-1 flex items-center justify-center gap-1.5 hover:bg-brand-light/80 transition duration-205 cursor-pointer"
+                <a 
+                  href={selectedApp.hrZalo || 'https://zalo.me/0332817798'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-3 bg-[#0068FF] text-white rounded-xl font-bold text-xs flex-1 flex items-center justify-center gap-1.5 hover:bg-[#005ad4] transition duration-205 cursor-pointer text-center select-none"
                 >
-                  <MessageSquare className="w-3.5 h-3.5" />
-                  Chat Zalo với HR
-                </button>
+                  <MessageSquare className="w-3.5 h-3.5 fill-white/10" />
+                  Chat Zalo với {selectedApp.hrName || 'Anh Đạo'}
+                </a>
                 <button 
-                  onClick={() => alert('Đang hiển thị CV của bạn ở định dạng PDF đã xuất.')}
-                  className="px-4 py-2 bg-gray-50 text-gray-600 rounded-xl font-bold text-xs flex-1 flex items-center justify-center gap-1.5 hover:bg-gray-100 transition duration-205 cursor-pointer"
+                  onClick={() => alert('Hệ thống đang mở bản CV ứng tuyển đã tối ưu hóa của bạn.')}
+                  className="px-4 py-3 bg-gray-50 text-gray-600 rounded-xl font-bold text-xs flex-1 flex items-center justify-center gap-1.5 hover:bg-gray-100 transition duration-205 cursor-pointer select-none"
                 >
                   <Eye className="w-3.5 h-3.5" />
                   Xem bản CV nộp

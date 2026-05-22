@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Briefcase, MapPin, DollarSign, Sparkles, Check, X, ShieldAlert, CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Search, Briefcase, MapPin, DollarSign, Sparkles, Check, X, ShieldAlert, CheckCircle, ChevronRight, ChevronLeft, MessageCircle } from 'lucide-react';
 import { Job } from '../types';
 
 interface JobMatchingProps {
