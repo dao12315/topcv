@@ -44,6 +44,7 @@ export interface Job {
   matchedSkills: string[];
   missingSkills: string[];
   applied: boolean;
+  category?: 'technical' | 'labor' | 'office';
 }
 
 export type ApplicationStatus = 'applied' | 'viewed' | 'interview' | 'rejected';

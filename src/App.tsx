@@ -13,7 +13,12 @@ import {
   Navigation,
   CheckCircle,
   GraduationCap,
-  Zap
+  Zap,
+  Phone as PhoneIcon,
+  MessageSquare as MessageSquareIcon,
+  Globe as GlobeIcon,
+  Image as ImageIcon,
+  Camera as CameraIcon
 } from 'lucide-react';
 
 // Data types & Mocks
@@ -42,6 +47,11 @@ export default function App() {
 
   // Simulated live clock state in notification bar
   const [currentTime, setCurrentTime] = useState('09:41');
+  
+  // Category selection & Smartphone OS launcher states
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'technical' | 'labor' | 'office'>('all');
+  const [isAppOpened, setIsAppOpened] = useState<boolean>(false);
+  const [isLaunching, setIsLaunching] = useState<boolean>(false);
   
   useEffect(() => {
     const updateClock = () => {
@@ -219,28 +229,182 @@ export default function App() {
             Sử dụng công nghệ giọng nói thông minh và quét tài liệu tự động ngay trên khung mô phỏng bên cạnh để tạo CV tức thì.
           </p>
         </div>
+
+        {/* Operating System Interactive Reset Card */}
+        <div className="bg-slate-900 text-white p-5 rounded-3xl space-y-3 shadow-md">
+          <div className="flex items-center gap-2">
+            <span className="text-base">📲</span>
+            <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Mô phỏng Điện thoại</p>
+          </div>
+          <p className="text-[11px] text-gray-300 leading-relaxed font-medium">
+            Thoát ứng dụng CVConnect bất kỳ lúc nào để quay trở về màn hình điện thoại chính (launcher) và trải nghiệm ấn vào icon mở app.
+          </p>
+          <button
+            onClick={() => {
+              setIsAppOpened(false);
+              setIsLaunching(false);
+            }}
+            className="w-full py-2 bg-white/10 hover:bg-white/20 text-white border border-white/10 font-bold text-xs rounded-xl transition text-center cursor-pointer flex items-center justify-center gap-1.5"
+          >
+            Đóng app về màn hình chính
+          </button>
+        </div>
       </div>
 
       {/* Mock smartphone device frame */}
-      <div className="w-full max-w-[430px] min-h-screen md:min-h-[820px] md:h-[820px] bg-[#f7f8fa] flex flex-col md:rounded-[40px] md:shadow-[0_24px_50px_rgba(0,104,255,0.08),_0_8px_20px_rgba(0,0,0,0.05)] md:border-[8px] md:border-gray-800 relative overflow-hidden border-gray-100 shrink-0">
+      <div className="w-full max-w-[430px] min-h-screen md:min-h-[820px] md:h-[820px] bg-[#f7f8fa] flex flex-col md:rounded-[40px] md:shadow-[0_24px_50px_rgba(0,104,255,0.08),_0_8px_20px_rgba(0,0,0,0.05)] md:border-[8px] md:border-gray-800 relative overflow-hidden border-gray-100 shrink-0 select-none">
         
-        {/* Top Simulated Speaker & Camera bar notch on Desktop */}
-        <div className="absolute top-0 inset-x-0 h-6 bg-gray-900 z-50 rounded-b-2xl items-center justify-center hidden md:flex pointer-events-none">
-          <div className="w-20 h-2 bg-black rounded-full" />
+        {/* Subtle circular front-facing camera punch-hole (chấm tròn camera) */}
+        <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-black rounded-full z-50 shadow-inner flex items-center justify-center pointer-events-none ring-1 ring-white/10">
+          <div className="w-0.5 h-0.5 bg-indigo-900/65 rounded-full" />
         </div>
 
         {/* Smartphone simulated Operating System status bar */}
-        <div className="h-10 bg-white/90 backdrop-blur-md px-6 flex items-center justify-between text-[11px] font-bold text-gray-800 select-none z-40 shrink-0 md:pt-4">
+        <div className={`h-10 px-6 flex items-center justify-between text-[11px] font-bold select-none z-40 shrink-0 md:pt-4 transition-all duration-300 ${isAppOpened ? 'bg-white/90 backdrop-blur-md text-gray-800' : 'bg-transparent text-white'}`}>
           <span className="font-sans font-extrabold">{currentTime}</span>
           <div className="flex items-center gap-1.5">
-            <span className="text-[9px] bg-brand text-white rounded px-1.2 py-0.2 font-sans tracking-widest leading-none font-bold">LTE</span>
+            <span className={`text-[9px] rounded px-1.2 py-0.2 font-sans tracking-widest leading-none font-bold ${isAppOpened ? 'bg-brand text-white' : 'bg-white/20 text-white'}`}>LTE</span>
             <Wifi className="w-3.5 h-3.5 tracking-tighter" />
             <Battery className="w-4 h-4 fill-current rotate-0" />
           </div>
         </div>
 
-        {/* Custom Zalo Mini App Top Header Navigation */}
-        <header className="h-14 bg-white border-b border-gray-100 px-4 flex items-center justify-between select-none shrink-0 z-40 relative">
+        {!isAppOpened ? (
+          /* Phone desktop launcher */
+          <div className="flex-1 relative bg-gradient-to-tr from-slate-950 via-indigo-950 to-emerald-950 flex flex-col p-6 overflow-hidden">
+            {/* Ambient Wallpapers & Background blobs */}
+            <div className="absolute -top-20 -left-20 w-60 h-60 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/3 -right-20 w-80 h-80 bg-brand/15 rounded-full blur-3xl pointer-events-none" />
+            
+            {isLaunching ? (
+              /* Splash screen during boot transition */
+              <div className="absolute inset-0 bg-[#10b981] flex flex-col items-center justify-center text-white z-50 animate-fadeIn">
+                <div className="p-4 bg-white/10 rounded-[32px] mb-4 backdrop-blur-md shadow-lg">
+                  <Sparkles className="w-12 h-12 text-white fill-white animate-pulse" />
+                </div>
+                <h1 className="text-2xl font-bold tracking-tight">TopCV AI</h1>
+                <p className="text-white/70 text-xs mt-1.5 font-medium uppercase tracking-wider">Hệ thống CV & Khớp Việc Thông Minh</p>
+                <div className="mt-8 flex flex-col items-center gap-2">
+                  <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span className="text-[9px] text-white/50 font-bold tracking-widest uppercase mt-1">Khởi tạo Mini Applet...</span>
+                </div>
+              </div>
+            ) : (
+              /* Normal Home Launcher State */
+              <div className="flex-1 flex flex-col justify-between z-10 pt-4 pb-8">
+                {/* Large OS Clock & Date */}
+                <div className="text-center space-y-1 text-white select-none">
+                  <h2 className="text-4xl font-extrabold tracking-tight drop-shadow-md">{currentTime}</h2>
+                  <p className="text-[11px] font-bold text-gray-300 tracking-wide uppercase drop-shadow-sm font-sans">
+                    {(() => {
+                      const daysOfWeek = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+                      const now = new Date();
+                      return `${daysOfWeek[now.getDay()]}, Ngày ${now.getDate()} Tháng ${now.getMonth() + 1}`;
+                    })()}
+                  </p>
+                </div>
+
+                {/* Grid of App Icons */}
+                <div className="grid grid-cols-4 gap-4 gap-y-6 px-1 my-auto">
+                  {/* Icon 1: Phone */}
+                  <div className="flex flex-col items-center gap-1.5 cursor-pointer group">
+                    <div className="w-12 h-12 bg-gradient-to-tr from-emerald-500 to-green-400 rounded-2xl flex items-center justify-center text-white shadow-md active:scale-95 transition">
+                      <PhoneIcon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[9px] text-gray-300 font-bold tracking-tight drop-shadow-sm group-hover:text-white">Điện thoại</span>
+                  </div>
+
+                  {/* Icon 2: Messages */}
+                  <div className="flex flex-col items-center gap-1.5 cursor-pointer group">
+                    <div className="w-12 h-12 bg-gradient-to-tr from-blue-500 to-sky-400 rounded-2xl flex items-center justify-center text-white shadow-md active:scale-95 transition">
+                      <MessageSquareIcon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[9px] text-gray-300 font-bold tracking-tight drop-shadow-sm group-hover:text-white">Tin nhắn</span>
+                  </div>
+
+                  {/* Icon 3: Browser */}
+                  <div className="flex flex-col items-center gap-1.5 cursor-pointer group">
+                    <div className="w-12 h-12 bg-gradient-to-tr from-orange-400 to-yellow-300 rounded-2xl flex items-center justify-center text-white shadow-md active:scale-95 transition">
+                      <GlobeIcon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[9px] text-gray-300 font-bold tracking-tight drop-shadow-sm group-hover:text-white">Safari</span>
+                  </div>
+
+                  {/* Icon 4: TOPCV AI SPECIAL TARGET ICON */}
+                  <button
+                    onClick={() => {
+                      setIsLaunching(true);
+                      setTimeout(() => {
+                        setIsLaunching(false);
+                        setIsAppOpened(true);
+                      }, 1200);
+                    }}
+                    className="flex flex-col items-center gap-1.5 focus:outline-none focus:ring-0 group cursor-pointer"
+                  >
+                    <div className="w-12 h-12 bg-[#10b981] rounded-2xl flex items-center justify-center text-white shadow-xl shadow-brand/40 ring-4 ring-white/10 active:scale-95 transition relative hover:scale-105 duration-200">
+                      <Sparkles className="w-5 h-5 fill-white text-white animate-pulse" />
+                      {/* Premium AI Glow Tag */}
+                      <span className="absolute -top-1.5 -right-1 bg-yellow-400 text-slate-900 font-black text-[7px] px-1 rounded-full border border-white scale-90">
+                        AI
+                      </span>
+                    </div>
+                    <span className="text-[9px] text-emerald-400 font-bold tracking-tight drop-shadow-sm group-hover:text-white transition">TopCV AI</span>
+                  </button>
+
+                  {/* Row 2 Apps */}
+                  {/* Icon 5: Zalo */}
+                  <div className="flex flex-col items-center gap-1.5 cursor-pointer group">
+                    <div className="w-12 h-12 bg-[#0068FF] rounded-2xl flex items-center justify-center text-white font-black text-[11px] shadow-sm active:scale-95 transition">
+                      Zalo
+                    </div>
+                    <span className="text-[9px] text-gray-300 font-bold tracking-tight drop-shadow-sm group-hover:text-white">Zalo</span>
+                  </div>
+
+                  {/* Icon 6: Photos */}
+                  <div className="flex flex-col items-center gap-1.5 cursor-pointer group">
+                    <div className="w-12 h-12 bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center text-white shadow-md active:scale-95 transition">
+                      <ImageIcon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[9px] text-gray-300 font-bold tracking-tight drop-shadow-sm group-hover:text-white">Ảnh</span>
+                  </div>
+
+                  {/* Icon 7: Camera */}
+                  <div className="flex flex-col items-center gap-1.5 cursor-pointer group">
+                    <div className="w-12 h-12 bg-gradient-to-tr from-gray-700 to-gray-500 rounded-2xl flex items-center justify-center text-white shadow-md active:scale-95 transition">
+                      <CameraIcon className="w-5 h-5" />
+                    </div>
+                    <span className="text-[9px] text-gray-300 font-bold tracking-tight drop-shadow-sm group-hover:text-white font-sans">Máy ảnh</span>
+                  </div>
+
+                  {/* Icon 8: Weather */}
+                  <div className="flex flex-col items-center gap-1.5 cursor-pointer group">
+                    <div className="w-12 h-12 bg-gradient-to-tr from-sky-400 to-amber-200 rounded-2xl flex items-center justify-center text-white text-base shadow-md active:scale-95 transition">
+                      ⛅
+                    </div>
+                    <span className="text-[9px] text-gray-300 font-bold tracking-tight drop-shadow-sm group-hover:text-white">Thời tiết</span>
+                  </div>
+                </div>
+
+                {/* Instructions banner */}
+                <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-center space-y-1 select-none">
+                  <p className="text-[11px] font-bold text-yellow-300 flex items-center justify-center gap-1 font-sans">
+                    <span>💡</span> Hướng dẫn mô phỏng điện thoại
+                  </p>
+                  <p className="text-[10px] text-gray-200 leading-normal font-sans">
+                    Chọn icon <span className="font-bold text-emerald-400">TopCV AI</span> màu xanh lá để trải nghiệm mở Zalo Mini App. Bạn có thể thoát ra lại màn hình này bằng nút ở cột bên trái bất kỳ lúc nào!
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Bottom swipe launcher gesture bar */}
+            <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/40 rounded-full" />
+          </div>
+        ) : (
+          /* Real interactive applet content inside frame */
+          <>
+            {/* Custom Zalo Mini App Top Header Navigation */}
+            <header className="h-14 bg-white border-b border-gray-100 px-4 flex items-center justify-between select-none shrink-0 z-40 relative">
           <div className="flex items-center gap-2">
             {(activeTab !== 'home' || (activeTab === 'cv' && cvStep !== 'templates')) ? (
               <button
@@ -282,16 +446,18 @@ export default function App() {
 
         {/* CV Stepper Progress bar (rendered only when user is inside the CV wizard) */}
         {activeTab === 'cv' && (
-          <div className="bg-white px-5 py-3.5 border-b border-gray-100 shadow-sm shrink-0">
+          <div className="bg-white px-6 py-3 border-b border-gray-100 shadow-xs shrink-0 select-none">
             <div className="flex justify-between items-center relative">
-              {/* background tracking line */}
-              <div className="absolute inset-x-4 h-0.5 bg-gray-100 top-1/2 -translate-y-1/2 z-0" />
+              {/* background tracking line aligned exactly to the center of the 24px (h-6) bubbles (12px top offset) */}
+              <div className="absolute inset-x-6 h-[2px] bg-gray-100 top-3 -translate-y-1/2 z-0" />
               <div 
-                className="absolute left-4 h-0.5 bg-brand top-1/2 -translate-y-1/2 z-0 transition-all duration-300"
+                className="absolute inset-x-6 h-[2px] bg-brand top-3 -translate-y-1/2 z-0 transition-all duration-300 origin-left"
                 style={{
-                  width: cvStep === 'templates' ? '0%' :
-                         cvStep === 'voice' ? '33.33%' :
-                         cvStep === 'scan' ? '66.66%' : '100%'
+                  transform: `translateY(-50%) scaleX(${
+                    cvStep === 'templates' ? 0 :
+                    cvStep === 'voice' ? 0.3333 :
+                    cvStep === 'scan' ? 0.6666 : 1
+                  })`
                 }}
               />
 
@@ -313,19 +479,19 @@ export default function App() {
                     key={step.id}
                     disabled={!isCompleted && !isActive}
                     onClick={() => setCvStep(step.id as any)}
-                    className="relative z-10 flex flex-col items-center gap-1 group cursor-pointer"
+                    className="relative z-10 flex flex-col items-center gap-1 group cursor-pointer focus:outline-none"
                   >
                     <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-300 ${
                       isActive 
                         ? 'bg-brand text-white ring-4 ring-brand/15 scale-110' 
                         : isCompleted 
-                          ? 'bg-emerald-550 bg-emerald-500 text-white' 
-                          : 'bg-gray-200 text-gray-500 hover:bg-gray-300'
+                          ? 'bg-emerald-500 text-white' 
+                          : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
                     }`}>
                       {isCompleted ? '✓' : index + 1}
                     </span>
-                    <span className={`text-[9px] font-semibold tracking-tight transition ${
-                      isActive ? 'text-brand font-bold' : 'text-gray-400'
+                    <span className={`text-[10px] font-bold tracking-tight transition ${
+                      isActive ? 'text-brand' : 'text-gray-450'
                     }`}>
                       {step.label}
                     </span>
@@ -355,6 +521,10 @@ export default function App() {
                     setCvStep(step);
                   }}
                   matchCount={activeJobMatchesCount}
+                  onSelectCategory={(category) => {
+                    setSelectedCategory(category);
+                    setActiveTab('jobs');
+                  }}
                 />
               )}
 
@@ -382,6 +552,7 @@ export default function App() {
                       cvData={cvData}
                       onUpdateCV={handleUpdateCV}
                       onSaveCVAndFindJobs={handleSaveCVAndFindJobs}
+                      selectedTemplateId={selectedTemplate || undefined}
                     />
                   )}
                 </>
@@ -392,6 +563,8 @@ export default function App() {
                   jobs={jobs}
                   onApplyJob={handleApplyJob}
                   cvScore={cvData.score}
+                  initialCategory={selectedCategory}
+                  onCategoryChange={setSelectedCategory}
                 />
               )}
 
@@ -480,6 +653,8 @@ export default function App() {
             )}
           </button>
         </nav>
+        </>
+        )}
 
         {/* Bottom Safety Home Bar indicator mockup */}
         <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-slate-900 rounded-full z-50 pointer-events-none hidden md:block" />

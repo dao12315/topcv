@@ -7,23 +7,37 @@ interface JobMatchingProps {
   jobs: Job[];
   onApplyJob: (jobId: string) => void;
   cvScore: number;
+  initialCategory?: 'all' | 'technical' | 'labor' | 'office';
+  onCategoryChange?: (category: 'all' | 'technical' | 'labor' | 'office') => void;
 }
 
-export default function JobMatching({ jobs, onApplyJob, cvScore }: JobMatchingProps) {
+export default function JobMatching({ jobs, onApplyJob, cvScore, initialCategory = 'all', onCategoryChange }: JobMatchingProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<'all' | 'intern' | 'fulltime' | 'parttime'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'technical' | 'labor' | 'office'>(initialCategory);
   const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
   const [successApplyJob, setSuccessApplyJob] = useState<Job | null>(null);
+
+  // Sync with prop changes from home quick action
+  React.useEffect(() => {
+    setSelectedCategory(initialCategory);
+  }, [initialCategory]);
 
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           job.company.toLowerCase().includes(searchQuery.toLowerCase());
     
-    if (selectedType === 'all') return matchesSearch;
-    if (selectedType === 'intern') return matchesSearch && job.type.toLowerCase().includes('thực tập');
-    if (selectedType === 'fulltime') return matchesSearch && job.type.toLowerCase().includes('toàn thời gian');
-    if (selectedType === 'parttime') return matchesSearch && job.type.toLowerCase().includes('bán thời gian');
-    return matchesSearch;
+    let matchesType = true;
+    if (selectedType === 'intern') matchesType = job.type.toLowerCase().includes('thực tập');
+    else if (selectedType === 'fulltime') matchesType = job.type.toLowerCase().includes('toàn thời gian') || job.type.toLowerCase().includes('fulltime');
+    else if (selectedType === 'parttime') matchesType = job.type.toLowerCase().includes('bán thời gian') || job.type.toLowerCase().includes('parttime');
+
+    let matchesCategory = true;
+    if (selectedCategory !== 'all') {
+      matchesCategory = job.category === selectedCategory;
+    }
+
+    return matchesSearch && matchesType && matchesCategory;
   });
 
   const handleApplyClick = (job: Job) => {
@@ -66,40 +80,94 @@ export default function JobMatching({ jobs, onApplyJob, cvScore }: JobMatchingPr
           />
         </div>
 
-        {/* Filter pills */}
-        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none font-sans">
-          <button
-            onClick={() => setSelectedType('all')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition cursor-pointer ${
-              selectedType === 'all' ? 'bg-brand text-white shadow-sm' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
-            }`}
-          >
-            Tất cả ({jobs.length})
-          </button>
-          <button
-            onClick={() => setSelectedType('intern')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition cursor-pointer ${
-              selectedType === 'intern' ? 'bg-brand text-white shadow-sm' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
-            }`}
-          >
-            Thực tập
-          </button>
-          <button
-            onClick={() => setSelectedType('fulltime')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition cursor-pointer ${
-              selectedType === 'fulltime' ? 'bg-brand text-white shadow-sm' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
-            }`}
-          >
-            Full-time
-          </button>
-          <button
-            onClick={() => setSelectedType('parttime')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition cursor-pointer ${
-              selectedType === 'parttime' ? 'bg-brand text-white shadow-sm' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
-            }`}
-          >
-            Part-time
-          </button>
+        {/* Filter pills - Type selection */}
+        <div className="space-y-1">
+          <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider px-0.5">Hình thức</span>
+          <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none font-sans">
+            <button
+              onClick={() => setSelectedType('all')}
+              className={`px-2.5 py-1.2 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer ${
+                selectedType === 'all' ? 'bg-brand text-white shadow-xs' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
+              }`}
+            >
+              Tất cả
+            </button>
+            <button
+              onClick={() => setSelectedType('intern')}
+              className={`px-2.5 py-1.2 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer ${
+                selectedType === 'intern' ? 'bg-brand text-white shadow-xs' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
+              }`}
+            >
+              Thực tập
+            </button>
+            <button
+              onClick={() => setSelectedType('fulltime')}
+              className={`px-2.5 py-1.2 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer ${
+                selectedType === 'fulltime' ? 'bg-brand text-white shadow-xs' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
+              }`}
+            >
+              Cố định (Full-time)
+            </button>
+            <button
+              onClick={() => setSelectedType('parttime')}
+              className={`px-2.5 py-1.2 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer ${
+                selectedType === 'parttime' ? 'bg-brand text-white shadow-xs' : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
+              }`}
+            >
+              Bán thời gian
+            </button>
+          </div>
+        </div>
+
+        {/* Filter pills - Category Selection */}
+        <div className="space-y-1 pt-1 border-t border-gray-100">
+          <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider px-0.5">Nhóm đối tượng</span>
+          <div className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-none font-sans">
+            <button
+              onClick={() => {
+                setSelectedCategory('all');
+                onCategoryChange?.('all');
+              }}
+              className={`px-2.5 py-1.2 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer ${
+                selectedCategory === 'all' ? 'bg-brand text-white shadow-xs' : 'bg-gray-100/70 text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              Tất cả nhóm
+            </button>
+            <button
+              onClick={() => {
+                setSelectedCategory('technical');
+                onCategoryChange?.('technical');
+              }}
+              className={`px-2.5 py-1.2 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer ${
+                selectedCategory === 'technical' ? 'bg-blue-600 text-white shadow-xs' : 'bg-blue-50/70 text-blue-800 hover:bg-blue-100/80'
+              }`}
+            >
+              ⚙️ Kỹ thuật & CNTT
+            </button>
+            <button
+              onClick={() => {
+                setSelectedCategory('labor');
+                onCategoryChange?.('labor');
+              }}
+              className={`px-2.5 py-1.2 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer ${
+                selectedCategory === 'labor' ? 'bg-emerald-600 text-white shadow-xs' : 'bg-emerald-50/70 text-emerald-800 hover:bg-emerald-100/80'
+              }`}
+            >
+              📦 Lao động phổ thông
+            </button>
+            <button
+              onClick={() => {
+                setSelectedCategory('office');
+                onCategoryChange?.('office');
+              }}
+              className={`px-2.5 py-1.2 rounded-lg text-[11px] font-bold whitespace-nowrap transition cursor-pointer ${
+                selectedCategory === 'office' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-indigo-50/70 text-indigo-800 hover:bg-indigo-100/80'
+              }`}
+            >
+              💼 Nhân viên văn phòng
+            </button>
+          </div>
         </div>
       </div>
 

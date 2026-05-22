@@ -13,7 +13,7 @@ export default function VoiceToCV({ onApplyAndNext }: VoiceToCVProps) {
   const [showResult, setShowResult] = useState(false);
 
   // Full target text to type out
-  const fullTranscript = 'Tôi là sinh viên năm 3 ngành Công nghệ thông tin, có kinh nghiệm React, Spring Boot và đã làm 2 dự án web.';
+  const fullTranscript = 'Tôi là kỹ sư hệ thống với 3 năm kinh nghiệm, có chuyên môn sâu về lập trình Java Spring Boot, React, quản trị Docker, AWS và phát triển ứng dụng di động Flutter.';
 
   // Simulate typing effect for the voice transcription
   useEffect(() => {
@@ -50,8 +50,8 @@ export default function VoiceToCV({ onApplyAndNext }: VoiceToCVProps) {
 
   const handleApply = () => {
     // Skills to append
-    const skills = ['React', 'Spring Boot', 'Frontend Development', 'Web Applications'];
-    const summary = 'Sinh viên năm 3 ngành Công nghệ thông tin với kiến thức nền tảng vững chắc và mong muốn phát triển chuyên sâu trong mảng phát triển Web, đặc biệt sử dụng React và Spring Boot framework.';
+    const skills = ['React', 'Spring Boot', 'Docker', 'AWS', 'Flutter', 'Git', 'CI/CD'];
+    const summary = 'Kỹ sư Hệ thống & Lập trình viên Fullstack với hơn 3 năm kinh nghiệm thực chiến. Chuyên sâu thiết kế kiến trúc hệ thống backend microservices bằng Spring Boot, tối ưu hóa giao diện ứng dụng web thông minh với React và phát triển đa nền tảng Flutter. Đắc lực trong vận hành container Docker/Kubernetes và triển khai tự động hóa CI/CD.';
     onApplyAndNext(skills, summary);
   };
 
@@ -197,7 +197,7 @@ export default function VoiceToCV({ onApplyAndNext }: VoiceToCVProps) {
               <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm space-y-1.5">
                 <span className="text-[10px] uppercase font-bold text-brand tracking-wider">Giới thiệu bản thân</span>
                 <p className="text-xs text-gray-700 leading-relaxed font-normal">
-                  Sinh viên năm 3 ngành Công nghệ thông tin với kiến thức lập trình cơ bản và yêu thích lập trình web.
+                  Chuyên viên phát triển phần mềm Fullstack với 3 năm kinh nghiệm lập trình backend (Spring Boot) và phát triển giao diện (React, Flutter).
                 </p>
               </div>
 
@@ -205,8 +205,8 @@ export default function VoiceToCV({ onApplyAndNext }: VoiceToCVProps) {
               <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm space-y-1.5">
                 <span className="text-[10px] uppercase font-bold text-brand tracking-wider">Kỹ năng phát hiện</span>
                 <div className="flex flex-wrap gap-1.5">
-                  {['React', 'Spring Boot', 'Lập trình Web'].map((skill, index) => (
-                    <span key={index} className="text-xs font-bold text-gray-700 bg-gray-100 px-2.5 py-1 rounded-lg">
+                  {['React', 'Spring Boot', 'Docker', 'AWS', 'Flutter', 'Git', 'CI/CD'].map((skill, index) => (
+                    <span key={index} className="text-xs font-bold text-gray-750 bg-brand-light/35 text-brand-dark px-2.5 py-1 rounded-lg">
                       {skill}
                     </span>
                   ))}
@@ -217,7 +217,7 @@ export default function VoiceToCV({ onApplyAndNext }: VoiceToCVProps) {
               <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm space-y-1.5">
                 <span className="text-[10px] uppercase font-bold text-brand tracking-wider">Kinh nghiệm / Dự án</span>
                 <p className="text-xs text-gray-700 leading-relaxed font-sans">
-                  Đã thực hiện và đóng góp trong <span className="font-bold text-gray-900">2 dự án lập trình web</span> với vai trò lập trình viên chính.
+                  Đã trực tiếp thiết kế kiến trúc backend cho hệ thống Ví điện tử chịu tải cao và đóng gói hạ tầng Docker/AWS vận hành trơn tru.
                 </p>
               </div>
 
@@ -225,7 +225,7 @@ export default function VoiceToCV({ onApplyAndNext }: VoiceToCVProps) {
               <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm space-y-1.5">
                 <span className="text-[10px] uppercase font-bold text-brand tracking-wider">Mục tiêu nghề nghiệp</span>
                 <p className="text-xs text-gray-700 leading-relaxed">
-                  Mong muốn thực tập để cọ xát thực tế, học hỏi quy trình chuyên nghiệp và làm việc trên môi trường sản phẩm thực.
+                  Mong muốn cống hiến năng lực giải quyết bài toán tải lớn và hướng tới Tech Lead/Solution Architect trong 2 năm tới.
                 </p>
               </div>
             </div>

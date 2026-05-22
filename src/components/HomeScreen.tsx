@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, FileText, Briefcase, ChevronRight, TrendingUp, Award, Zap } from 'lucide-react';
+import { Sparkles, FileText, Briefcase, ChevronRight, TrendingUp, Award, Zap, Users, ChevronDown, ChevronUp, Wrench, Building } from 'lucide-react';
 import { CVData } from '../types';
 
 interface HomeScreenProps {
@@ -8,9 +8,12 @@ interface HomeScreenProps {
   onNavigateToTab: (tab: 'home' | 'cv' | 'jobs' | 'tracking') => void;
   onStartCVWizard: (step: 'templates' | 'voice' | 'scan' | 'editor') => void;
   matchCount: number;
+  onSelectCategory?: (category: 'all' | 'technical' | 'labor' | 'office') => void;
 }
 
-export default function HomeScreen({ cvData, onNavigateToTab, onStartCVWizard, matchCount }: HomeScreenProps) {
+export default function HomeScreen({ cvData, onNavigateToTab, onStartCVWizard, matchCount, onSelectCategory }: HomeScreenProps) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   return (
     <div className="space-y-6 pb-6">
       {/* Welcome Banner */}
@@ -99,6 +102,89 @@ export default function HomeScreen({ cvData, onNavigateToTab, onStartCVWizard, m
             <span className="text-lg font-bold text-gray-800 mt-0.5">{cvData.score}%</span>
           </motion.div>
         </div>
+      </div>
+
+      {/* Target Audiences Dropdown Section */}
+      <div className="bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden transition-all duration-300">
+        <button
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50/50 transition cursor-pointer"
+        >
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-brand/10 text-brand flex items-center justify-center">
+              <Users className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="text-[10px] text-gray-400 font-extrabold uppercase tracking-wider">Lọc nhanh việc làm</p>
+              <h3 className="text-xs font-bold text-gray-700">Nhóm Đối Tượng Tìm Việc</h3>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-brand bg-brand-light px-2 py-0.5 rounded-md">
+              {isDropdownOpen ? 'Thu gọn' : 'Bấm chọn'}
+            </span>
+            {isDropdownOpen ? (
+              <ChevronUp className="w-4 h-4 text-gray-500 stroke-[2.5]" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-gray-500 stroke-[2.5]" />
+            )}
+          </div>
+        </button>
+
+        {isDropdownOpen && (
+          <div className="border-t border-gray-100 p-3 bg-gray-50/30 space-y-2 animate-fadeIn">
+            {/* Option 1: Kỹ thuật / CNTT */}
+            <div
+              onClick={() => onSelectCategory?.('technical')}
+              className="flex items-center justify-between p-3 bg-white border border-gray-100 rounded-xl hover:border-brand hover:shadow-xs transition cursor-pointer group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                  <Wrench className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-gray-800 group-hover:text-brand transition">Kỹ thuật & Công nghệ</h4>
+                  <p className="text-[10px] text-gray-500">Lập trình, Mạng IT, DevOps, Hệ thống nhúng...</p>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-brand group-hover:translate-x-0.5 transition" />
+            </div>
+
+            {/* Option 2: Lao động phổ thông */}
+            <div
+              onClick={() => onSelectCategory?.('labor')}
+              className="flex items-center justify-between p-3 bg-white border border-gray-100 rounded-xl hover:border-brand hover:shadow-xs transition cursor-pointer group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                  <Briefcase className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-gray-800 group-hover:text-brand transition">Lao động Phổ thông</h4>
+                  <p className="text-[10px] text-gray-500">Giao hàng, Phục vụ nhà hàng, Đóng gói, Kho vận...</p>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-brand group-hover:translate-x-0.5 transition" />
+            </div>
+
+            {/* Option 3: Văn phòng */}
+            <div
+              onClick={() => onSelectCategory?.('office')}
+              className="flex items-center justify-between p-3 bg-white border border-gray-100 rounded-xl hover:border-brand hover:shadow-xs transition cursor-pointer group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+                  <Building className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-gray-800 group-hover:text-brand transition">Nhân viên Văn phòng</h4>
+                  <p className="text-[10px] text-gray-500">Hành chính, Kế toán tổng hợp, Nhập liệu, Thiết kế...</p>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-brand group-hover:translate-x-0.5 transition" />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* AI Features Checklist / Feature Tour */}

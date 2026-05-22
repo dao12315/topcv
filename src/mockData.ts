@@ -94,6 +94,7 @@ export const mockJobs: Job[] = [
     matchScore: 94,
     matchedSkills: ['React', 'HTML/CSS', 'Javascript', 'Git'],
     missingSkills: ['Typescript', 'Teamwork'],
+    category: 'technical',
     applied: false
   },
   {
@@ -106,6 +107,59 @@ export const mockJobs: Job[] = [
     matchScore: 88,
     matchedSkills: ['Spring Boot', 'Git'],
     missingSkills: ['SQL Server', 'RESTful API Basic'],
+    category: 'technical',
+    applied: false
+  },
+  {
+    id: 'job-5',
+    title: 'Kỹ sư nhúng (Embedded System C/C++)',
+    company: 'VTI Tech Group',
+    salary: '12.000.000 - 18.000.000 VNĐ',
+    location: 'Quận 9, TP. Thủ Đức',
+    type: 'Toàn thời gian / Offline',
+    matchScore: 92,
+    matchedSkills: ['C/C++', 'Git', 'Lập trình Web'],
+    missingSkills: ['FreeRTOS', 'Linux Embedded'],
+    category: 'technical',
+    applied: false
+  },
+  {
+    id: 'job-6',
+    title: 'Lập trình viên Mobile Flutter (Junior)',
+    company: 'VinID Tech',
+    salary: '15.000.000 - 22.000.000 VNĐ',
+    location: 'Quận 1, TP. Hồ Chí Minh',
+    type: 'Toàn thời gian / Hybrid',
+    matchScore: 89,
+    matchedSkills: ['React', 'Javascript', 'Git'],
+    missingSkills: ['Flutter Dart', 'RESTful APIs', 'Bloc/Provider'],
+    category: 'technical',
+    applied: false
+  },
+  {
+    id: 'job-7',
+    title: 'Junior DevOps Engineer',
+    company: 'VNG Cloud',
+    salary: '14.000.000 - 21.000.000 VNĐ',
+    location: 'Quận 7, TP. Hồ Chí Minh',
+    type: 'Toàn thời gian / Offline',
+    matchScore: 85,
+    matchedSkills: ['Git'],
+    missingSkills: ['Docker', 'Kubernetes', 'CI/CD Pipelines', 'Linux Shell'],
+    category: 'technical',
+    applied: false
+  },
+  {
+    id: 'job-8',
+    title: 'Kỹ sư hạ tầng mạng IT (Network Engineer)',
+    company: 'CMC TSS',
+    salary: '10.000.000 - 15.000.000 VNĐ',
+    location: 'Quận Cầu Giấy, Hà Nội',
+    type: 'Toàn thời gian / Offline',
+    matchScore: 78,
+    matchedSkills: ['Git'],
+    missingSkills: ['CCNA Cert', 'Firewall Policy', 'Network Security', 'Linux Admin'],
+    category: 'technical',
     applied: false
   },
   {
@@ -118,6 +172,7 @@ export const mockJobs: Job[] = [
     matchScore: 81,
     matchedSkills: ['Google UX Design Certificate'],
     missingSkills: ['Figma Mastery', 'Communication'],
+    category: 'office',
     applied: false
   },
   {
@@ -130,6 +185,85 @@ export const mockJobs: Job[] = [
     matchScore: 76,
     matchedSkills: [],
     missingSkills: ['Sales Skills', 'Customer Support', 'Communication'],
+    category: 'office',
+    applied: false
+  },
+  {
+    id: 'job-12',
+    title: 'Nhân viên Hành chính Nhân sự',
+    company: 'G-Group',
+    salary: '8.000.000 - 10.000.000 VNĐ',
+    location: 'Quận Đống Đa, Hà Nội',
+    type: 'Toàn thời gian / Offline',
+    matchScore: 91,
+    matchedSkills: ['Git', 'Communication'],
+    missingSkills: ['Excel Advanced', 'HR Policy'],
+    category: 'office',
+    applied: false
+  },
+  {
+    id: 'job-13',
+    title: 'Chuyên viên Kế toán Tổng hợp',
+    company: 'MISA Joint Stock Company',
+    salary: '10.000.000 - 14.000.000 VNĐ',
+    location: 'Quận Cầu Giấy, Hà Nội',
+    type: 'Toàn thời gian / Offline',
+    matchScore: 86,
+    matchedSkills: [],
+    missingSkills: ['MISA Software', 'Tax Declaration', 'Financial Report'],
+    category: 'office',
+    applied: false
+  },
+  {
+    id: 'job-14',
+    title: 'Cộng tác viên Nhập liệu & Admin',
+    company: 'NextTech Group',
+    salary: '4.000.000 - 6.000.000 VNĐ',
+    location: 'Làm việc từ xa (Remote)',
+    type: 'Bán thời gian / Online',
+    matchScore: 82,
+    matchedSkills: [],
+    missingSkills: ['Wordpress Panel', 'Content Creation'],
+    category: 'office',
+    applied: false
+  },
+  {
+    id: 'job-9',
+    title: 'Nhân viên Giao hàng bằng Xe máy',
+    company: 'Giao Hàng Tiết Kiệm (GHTK)',
+    salary: '8.000.000 - 12.000.000 VNĐ',
+    location: 'Quận Bình Thạnh, TP. HCM',
+    type: 'Toàn thời gian / Linh hoạt',
+    matchScore: 95,
+    matchedSkills: ['Git'],
+    missingSkills: ['Driver License', 'Map Navigation'],
+    category: 'labor',
+    applied: false
+  },
+  {
+    id: 'job-10',
+    title: 'Nhân viên Phục vụ Quán cà phê',
+    company: 'The Coffee House',
+    salary: '22.500 VNĐ/Giờ + Thưởng',
+    location: 'Quận Đống Đa, Hà Nội',
+    type: 'Bán thời gian / Linh hoạt',
+    matchScore: 90,
+    matchedSkills: [],
+    missingSkills: ['Customer Welcoming', 'Beverage Prep'],
+    category: 'labor',
+    applied: false
+  },
+  {
+    id: 'job-11',
+    title: 'Nhân viên Kho vận & Đóng gói',
+    company: 'Shopee Express',
+    salary: '7.500.000 - 10.000.000 VNĐ',
+    location: 'Kho Củ Chi, TP. HCM',
+    type: 'Toàn thời gian / Xoay ca',
+    matchScore: 87,
+    matchedSkills: [],
+    missingSkills: ['Physical Health', 'Inventory Management'],
+    category: 'labor',
     applied: false
   }
 ];
