@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Briefcase, MapPin, DollarSign, Sparkles, Check, X, ShieldAlert, CheckCircle, ChevronRight } from 'lucide-react';
+import { Search, Briefcase, MapPin, DollarSign, Sparkles, Check, X, ShieldAlert, CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Job } from '../types';
 
 interface JobMatchingProps {
@@ -17,11 +17,18 @@ export default function JobMatching({ jobs, onApplyJob, cvScore, initialCategory
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'technical' | 'labor' | 'office'>(initialCategory);
   const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
   const [successApplyJob, setSuccessApplyJob] = useState<Job | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   // Sync with prop changes from home quick action
   React.useEffect(() => {
     setSelectedCategory(initialCategory);
   }, [initialCategory]);
+
+  // Reset page when search or filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedType, selectedCategory]);
 
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -39,6 +46,9 @@ export default function JobMatching({ jobs, onApplyJob, cvScore, initialCategory
 
     return matchesSearch && matchesType && matchesCategory;
   });
+
+  const totalPages = Math.ceil(filteredJobs.length / itemsPerPage) || 1;
+  const paginatedJobs = filteredJobs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handleApplyClick = (job: Job) => {
     setApplyingJobId(job.id);
@@ -178,7 +188,7 @@ export default function JobMatching({ jobs, onApplyJob, cvScore, initialCategory
 
       {/* Jobs List container with dynamic card designs */}
       <div className="space-y-4">
-        {filteredJobs.map((job) => (
+        {paginatedJobs.map((job) => (
           <motion.div
             key={job.id}
             initial={{ opacity: 0, y: 10 }}
@@ -285,6 +295,54 @@ export default function JobMatching({ jobs, onApplyJob, cvScore, initialCategory
             <span className="text-3xl">🔍</span>
             <h4 className="text-sm font-bold text-gray-700">Không tìm thấy việc làm phù hợp</h4>
             <p className="text-xs text-gray-400">Hãy thử gõ từ khóa khác hoặc bổ sung kỹ năng vào CV của bạn</p>
+          </div>
+        )}
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between pt-2 px-1 select-none font-sans">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className={`p-2 rounded-xl border flex items-center justify-center transition active:scale-95 ${
+                currentPage === 1
+                  ? 'border-gray-100 text-gray-300 bg-gray-50/50 cursor-not-allowed'
+                  : 'border-gray-200 text-gray-600 bg-white hover:bg-gray-50 cursor-pointer'
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                const isSelected = page === currentPage;
+                return (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-8 h-8 rounded-xl font-bold text-xs flex items-center justify-center transition cursor-pointer ${
+                      isSelected
+                        ? 'bg-brand text-white shadow-xs'
+                        : 'text-gray-500 hover:bg-gray-100 bg-white border border-gray-100 shadow-2xs'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className={`p-2 rounded-xl border flex items-center justify-center transition active:scale-95 ${
+                currentPage === totalPages
+                  ? 'border-gray-100 text-gray-300 bg-gray-50/50 cursor-not-allowed'
+                  : 'border-gray-200 text-gray-600 bg-white hover:bg-gray-50 cursor-pointer'
+              }`}
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         )}
       </div>
