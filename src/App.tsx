@@ -70,20 +70,23 @@ export default function App() {
     setSelectedTemplate(templateId);
   };
 
-  const handleApplyVoiceToCV = (parsedSkills: string[], summary: string) => {
+  const handleApplyVoiceToCV = (parsedSkills: string[], summary: string, extraCVData?: Partial<CVData>) => {
     // Append newly parsed skills from voice processing
-    const currentSkills = [...cvData.skills];
-    parsedSkills.forEach(s => {
-      if (!currentSkills.includes(s)) {
-        currentSkills.push(s);
-      }
-    });
+    const currentSkills = extraCVData?.skills ? [...extraCVData.skills] : [...cvData.skills];
+    if (parsedSkills.length > 0 && !extraCVData?.skills) {
+      parsedSkills.forEach(s => {
+        if (!currentSkills.includes(s)) {
+          currentSkills.push(s);
+        }
+      });
+    }
 
     setCvData(prevResult => ({
       ...prevResult,
       summary: summary,
       skills: currentSkills,
-      score: 82 // voice transcription updates base completeness
+      score: 82, // voice transcription updates base completeness
+      ...extraCVData
     }));
 
     // Transition to Certificate scan step
@@ -547,6 +550,7 @@ export default function App() {
                   {cvStep === 'scan' && (
                     <ScanCertificate
                       onAddCertificates={handleAddCertificates}
+                      currentPosition={cvData.targetPosition}
                     />
                   )}
                   {cvStep === 'editor' && (
